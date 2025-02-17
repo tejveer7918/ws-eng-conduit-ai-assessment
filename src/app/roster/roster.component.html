@@ -1,12 +1,19 @@
 <div class="roster-page">
   <div class="container">
     <h1>Author Roster</h1>
-    
-    <div class="article-preview" *ngIf="isLoading">
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="article-preview">
       Loading user statistics...
     </div>
 
-    <table class="table" *ngIf="!isLoading">
+    <!-- No Data Available State -->
+    <div *ngIf="!isLoading && userStats.length === 0" class="no-data">
+      No authors found.
+    </div>
+
+    <!-- Table for User Stats -->
+    <table *ngIf="!isLoading && userStats.length > 0" class="table">
       <thead>
         <tr>
           <th>Rank</th>
@@ -17,19 +24,20 @@
         </tr>
       </thead>
       <tbody>
+        <!-- Loop through user stats -->
         <tr *ngFor="let user of userStats; let i = index">
-          <td>{{i + 1}}</td>
+          <td>{{ i + 1 }}</td>
           <td>
             <a [routerLink]="['/profile', user.username]" class="author">
-              <img [src]="user.image" class="user-pic" />
-              {{user.username}}
+              <img [src]="user.image" class="user-pic" alt="{{ user.username }}'s image" />
+              {{ user.username }}
             </a>
           </td>
-          <td>{{user.totalArticles}}</td>
-          <td>{{user.totalFavorites}}</td>
-          <td>{{user.firstArticleDate | date}}</td>
+          <td>{{ user.totalArticles }}</td>
+          <td>{{ user.totalFavorites }}</td>
+          <td>{{ user.firstArticleDate | date }}</td>
         </tr>
       </tbody>
     </table>
   </div>
-</div> 
+</div>
