@@ -1,0 +1,35 @@
+<div class="roster-page">
+  <div class="container">
+    <h1>Author Roster</h1>
+    
+    <div class="article-preview" *ngIf="isLoading">
+      Loading user statistics...
+    </div>
+
+    <table class="table" *ngIf="!isLoading">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Author</th>
+          <th>Articles</th>
+          <th>Total Favorites</th>
+          <th>First Article</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of userStats; let i = index">
+          <td>{{i + 1}}</td>
+          <td>
+            <a [routerLink]="['/profile', user.username]" class="author">
+              <img [src]="user.image" class="user-pic" />
+              {{user.username}}
+            </a>
+          </td>
+          <td>{{user.totalArticles}}</td>
+          <td>{{user.totalFavorites}}</td>
+          <td>{{user.firstArticleDate | date}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 
